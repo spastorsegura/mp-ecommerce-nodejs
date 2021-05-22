@@ -3,6 +3,7 @@ var exphbs = require("express-handlebars");
 var mercadopago = require("mercadopago");
 require("dotenv").config();
 var port = process.env.PORT || 3000;
+
 mercadopago.configure({
   access_token: process.env.ACCESS_TOKEN,
   integrator_id: process.env.INTEGRATOR_ID,
@@ -88,12 +89,29 @@ app.get("/detail", async function (req, res) {
 
   const respuesta = await mercadopago.preferences.create(preferencia);
   console.log(respuesta);
+  req.query.init_point = respuesta.body.init_point;
+  req.query.id = respuesta.body.id;
   res.render("detail", req.query);
 });
 
-app.get("/success",function(req,res){
-  console.log(req.query)
-  res.render("success",req.query)
-})
+app.get("/success", function (req, res) {
+  console.log(req.query);
+  res.render("success", req.query);
+});
+app.get("/failure", function (req, res) {
+  res.render("failure", req.query);
+});
+app.get("/pending", function (req, res) {
+  res.render("pending", req.query);
+});
+
+app.post("/notificaciones", function (req, res) {
+  console.log("INICIO DE NOTIFICACIONES");
+  console.log("MEDIANTE EL QUERY PARAMS");
+  console.log(req.query);
+  console.log("MEDIANTE EL BODY");
+  console.log(req.body);
+  res.status(200);
+});
 
 app.listen(port);

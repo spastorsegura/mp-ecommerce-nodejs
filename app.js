@@ -39,7 +39,7 @@ const cliente = {
   },
   identification: {
     type: "DNI",
-    number: "223344455",
+    number: "22334445",
   },
 };
 
@@ -50,7 +50,7 @@ const metodos_pago = {
       id: "diners",
     },
   ],
-  exclude_payment_types: [
+  excluded_payment_types: [
     {
       id: "atm",
     },
@@ -90,7 +90,7 @@ app.get("/detail", async function (req, res) {
     id: "1234",
     title: title,
     description: "Dispositivo móvil de Tienda e-commerce",
-    picture_url: img,
+    picture_url: req.get("host") + img.substr(1),
     quantity: +unit,
     currency_id: "PEN",
     unit_price: +price,

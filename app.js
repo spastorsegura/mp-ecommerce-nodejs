@@ -1,6 +1,7 @@
 var express = require("express");
 var exphbs = require("express-handlebars");
 var mercadopago = require("mercadopago");
+var { json } = require("body-parser");
 require("dotenv").config();
 var port = process.env.PORT || 3000;
 
@@ -10,6 +11,7 @@ mercadopago.configure({
 });
 
 var app = express();
+app.use(json());
 
 const cliente = {
   name: "Lalo",

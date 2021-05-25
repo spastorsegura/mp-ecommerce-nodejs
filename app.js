@@ -87,7 +87,7 @@ app.get("/detail", async function (req, res) {
 
   const { img, title, price, unit } = req.query;
   const item = {
-    id: "1234",
+    id: 1234,
     title: title,
     description: "Dispositivo móvil de Tienda e-commerce",
     picture_url: req.get("host") + img.substr(1),
@@ -100,7 +100,7 @@ app.get("/detail", async function (req, res) {
   preferencia.back_urls.failure = `${req.get("host")}/failure`;
   preferencia.back_urls.success = `${req.get("host")}/success`;
   preferencia.back_urls.pending = `${req.get("host")}/pending`;
-  // preferencia.notification_url = `${req.get("host")}/notificaciones`;
+  preferencia.notification_url = `${req.get("host")}/notificaciones`;
 
   const respuesta = await mercadopago.preferences.create(preferencia);
   console.log(respuesta);
